@@ -2,8 +2,6 @@
 
 int main()
 {
-    System sys();
-
     int width, height;
 
     std::cout << "높이와 너비를 띄어쓰기로 분리해서 입력 >> ";

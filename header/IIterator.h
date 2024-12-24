@@ -16,50 +16,50 @@ public:
     using reference = typename tr::reference;
     using pointer = typename tr::pointer;
 
-    iter() : i(I()) {}
+    IIterator() : i(I()) {}
 
-    explicit iter(const I &i) : i(i) {}
+    explicit IIterator(const I &i) : i(i) {}
 
-    // Forward iterator requirements
+    // Forward IIteratorator requirements
     reference operator*() const { return *i; }
 
     pointer operator->() const { return i; }
 
-    iter &operator++()
+    IIterator &operator++()
     {
         ++i;
         return *this;
     }
 
-    iter operator++(int) { return iter(i++); }
+    IIterator operator++(int) { return IIterator(i++); }
 
-    // Bidirectional iterator requirements
-    iter &operator--()
+    // Bidirectional IIteratorator requirements
+    IIterator &operator--()
     {
         --i;
         return *this;
     }
 
-    iter operator--(int) { return iter(i--); }
+    IIterator operator--(int) { return IIterator(i--); }
 
-    // Random access iterator requirements
+    // Random access IIteratorator requirements
     reference operator[](const difference_type &n) const { return i[n]; }
 
-    iter &operator+=(const difference_type &n)
+    IIterator &operator+=(const difference_type &n)
     {
         i += n;
         return *this;
     }
 
-    iter operator+(const difference_type &n) const { return iter(i + n); }
+    IIterator operator+(const difference_type &n) const { return IIterator(i + n); }
 
-    iter &operator-=(const difference_type &n)
+    IIterator &operator-=(const difference_type &n)
     {
         i -= n;
         return *this;
     }
 
-    iter operator-(const difference_type &n) const { return iter(i - n); }
+    IIterator operator-(const difference_type &n) const { return IIterator(i - n); }
 
     const I &base() const { return i; }
 };

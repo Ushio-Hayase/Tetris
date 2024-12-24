@@ -2,62 +2,16 @@
 /*
 * LinkedList data structure header file
 */
+#include <functional>
 
-#include <iterator>
+#include "IIterator.h"
 
 template <typename T>
 struct LinkedListElement
 {
 	T content;
-	LinkedListElement* nextElement = nullptr;
-	LinkedListElement* prevElement = nullptr;
-};
-
-template <typename T>
-class IIterator
-{
-public:
-	IIterator() : ptr(nullptr) {}
-	IIterator(T* ptr) : ptr(ptr) {}
-
-	// 전위형 ++it
-	IIterator& operator++()
-	{
-		this->ptr++;
-		return *this;
-	}
-	
-	// 후위형 it++
-	IIterator operator++(int)
-	{
-		IIterator tmp = *this;
-		this->ptr++;
-		return tmp;
-	}
-
-	IIterator operator+(const int count)
-	{
-		IIterator tmp = *this;
-		tmp.ptr += count;
-		return tmp;
-	}
-
-	bool operator==(const IIterator& other)
-	{
-		return this->ptr == other.ptr;
-	}
-
-	bool operator!=(const IIterator& other)
-	{
-		return this->ptr != other.ptr;
-	}
-
-	T& operator*()
-	{
-		return *this->ptr;
-	}
-public:
-	T* ptr = nullptr;
+	LinkedListElement* nextElement = nulli;
+	LinkedListElement* prevElement = nulli;
 };
 
 template <typename T>
@@ -118,19 +72,18 @@ public:
 
 	inline void insert(const iterator& iter, const T& content)
 	{
-		LinkedListElement<T>* prevTmp = iter.ptr->prevElement;
+		LinkedListElement<T>* prevTmp = iter.i->prevElement;
 
-		iter.ptr->prevElement = new LinkedListElement<T>();
-		iter.ptr->prevElement->content = content;
-		prevTmp->nextElement = iter.ptr->prevElement;
+		iter.i->prevElement = new LinkedListElement<T>();
+		iter.i->prevElement->content = content;
+		prevTmp->nextElement = iter.i->prevElement;
 	}
 
 	inline iterator erase(const iterator& iter)
 	{
-		LinkedListElement<T>* tmp = iter.ptr->nextElement;
-		iter.ptr->prevElement = tmp;
-		tmp->prevElement = iter.ptr->prevElement;
-		delete iter.ptr;
+		LinkedListElement<T>* tmp = iter.i->nextElement;
+		iter.i->prevElement = tmp;
+		tmp->prevElement = iter.i->prevElement;
 
 		return tmp;
 	}
@@ -144,8 +97,27 @@ public:
 	{
 		for (auto iter : this->begin())
 		{
-			
+			if (iter.i.content == content) this->erase(iter);
 		}
+	}
+
+	void reverse()
+	{
+		for (auto iter : this->begin())
+		{
+			LinkedListElement<T>* tmp = iter.i.prevElement;
+			iter.i.prevElement = iter.i.nextElement;
+			iter.i.nextElement = tmp;
+		}
+
+		LinkedListElement<T>* tmp = this->frontElement;
+		this->frontElement = this->endElement;
+		this->endElement = tmp;
+	}
+
+	void sort(std::function func)
+	{
+
 	}
 private:
 	LinkedListElement<T>* frontElement;

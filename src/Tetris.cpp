@@ -1,8 +1,8 @@
-﻿#include "tetris.h"
+﻿#include "Tetris.h"
 
 Board::Board(const size_t &width, const size_t &height) : boardWidth(width), boardHeight(height)
 {
-    this->board = new char*[height];
+    this->board = new char *[height];
     for (int i = 0; i < height; ++i)
     {
         this->board[i] = new char[width];
@@ -84,7 +84,7 @@ void Block::RotateBlock(ERotateDirection rotate)
 {
     for (int i = 0; i < 3; ++i)
     {
-        RelativeCoordinate tmp{ 0, 0 };
+        RelativeCoordinate tmp{0, 0};
         RelativeCoordinate &relativeCoor = this->other[i];
         if (rotate == ERotateDirection::ClockWise)
         {
@@ -151,14 +151,14 @@ SquareBlock::SquareBlock(const Coordinates centerCoor)
 {
     this->center = centerCoor;
     this->other[0] = RelativeCoordinate{-1, 0};
-    this->other[1] = RelativeCoordinate{ -1, -1 };
-    this->other[2] = RelativeCoordinate{ 0, -1 };
+    this->other[1] = RelativeCoordinate{-1, -1};
+    this->other[2] = RelativeCoordinate{0, -1};
 }
 
 LShapeBlock::LShapeBlock(const Coordinates centerCoor)
 {
     this->center = centerCoor;
-    this->other[0] = RelativeCoordinate{ 0, -1 };
+    this->other[0] = RelativeCoordinate{0, -1};
     this->other[1] = RelativeCoordinate{0, 1};
     this->other[2] = RelativeCoordinate{1, 1};
 }
@@ -166,15 +166,15 @@ LShapeBlock::LShapeBlock(const Coordinates centerCoor)
 ReverseLShapeBlock::ReverseLShapeBlock(const Coordinates centerCoor)
 {
     this->center = centerCoor;
-    this->other[0] = RelativeCoordinate{ 0, -1 };
-    this->other[1] = RelativeCoordinate{ 0, 1 };
-    this->other[2] = RelativeCoordinate{ -1, 1 };
+    this->other[0] = RelativeCoordinate{0, -1};
+    this->other[1] = RelativeCoordinate{0, 1};
+    this->other[2] = RelativeCoordinate{-1, 1};
 }
 
 SnakeBlock::SnakeBlock(const Coordinates centerCoor)
 {
     this->center = centerCoor;
-    this->other[0] = RelativeCoordinate{ 0, -1 };
+    this->other[0] = RelativeCoordinate{0, -1};
     this->other[1] = RelativeCoordinate{1, 0};
     this->other[2] = RelativeCoordinate{1, 1};
 }
@@ -190,7 +190,7 @@ ReverseSnakeBlock::ReverseSnakeBlock(const Coordinates centerCoor)
 StraightBlock::StraightBlock(const Coordinates centerCoor)
 {
     this->center = centerCoor;
-    this->other[0] = RelativeCoordinate{ 0, -1 };
+    this->other[0] = RelativeCoordinate{0, -1};
     this->other[1] = RelativeCoordinate{0, 1};
     this->other[2] = RelativeCoordinate{0, 2};
 }
